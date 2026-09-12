@@ -149,6 +149,7 @@ body {
 /* Referenzkarte plus Erklärung, nebeneinander im Fuß. */
 .key {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: start;
 	gap: clamp(0.9rem, 1.8vw, 1.75rem);
 	margin-bottom: 0.6rem;
@@ -175,8 +176,11 @@ body {
 /* Hinweis für die Person am Laptop. Blendet sich aus, bevor der Raum hinschaut. */
 .hint {
 	display: flex;
+	/* Ohne Umbruch zwingt die Zeile auf dem Handy die ganze Seite breiter
+	   als den Schirm. */
+	flex-wrap: wrap;
 	align-items: center;
-	gap: 0.9rem;
+	gap: 0.35rem 0.9rem;
 	margin: 0;
 	color: var(--dim);
 	font-size: 0.9rem;
