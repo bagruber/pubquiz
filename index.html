@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pubquiz</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+	.rounds {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		align-self: start;
+		max-width: 48rem;
+	}
+
+	.rounds a {
+		display: flex;
+		align-items: baseline;
+		gap: 0.8em;
+		padding: 1.1rem 0;
+		border-bottom: 2px solid var(--rule);
+		color: var(--paper);
+		font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+		font-weight: 600;
+		font-stretch: 92%;
+		text-decoration: none;
+	}
+
+	.rounds a:hover {
+		color: var(--accent);
+		border-bottom-color: var(--accent);
+	}
+
+	.rounds b {
+		flex: none;
+		min-width: 1.4em;
+		color: var(--accent);
+		font-weight: 800;
+		font-stretch: 115%;
+		font-variant-numeric: tabular-nums;
+	}
+</style>
+</head>
+<body>
+
+<div class="stage">
+	<header class="stage__head">
+		<h1 class="stage__title">Runden</h1>
+	</header>
+
+	<ul class="rounds">
+		<li><a href="rounds/logos.html"><b>1</b> Logo-Ausschnitte</a></li>
+	</ul>
+
+	<footer></footer>
+</div>
+
+</body>
+</html>

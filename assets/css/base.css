@@ -1,0 +1,148 @@
+/* Schrift, Farben und Seitengerüst. Von allen Runden geteilt. */
+
+@font-face {
+	font-family: Archivo;
+	src: url(../fonts/archivo-latin.woff2) format('woff2');
+	font-weight: 400 900;
+	font-stretch: 62% 125%;
+	font-display: swap;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+
+@font-face {
+	font-family: Archivo;
+	src: url(../fonts/archivo-latin-ext.woff2) format('woff2');
+	font-weight: 400 900;
+	font-stretch: 62% 125%;
+	font-display: swap;
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+1E00-1E9F, U+2020, U+20A0-20AB;
+}
+
+/*
+ * Die drei Werte oben sind die ganze Farbsteuerung. Alles andere wird daraus
+ * gemischt, eine neue Hauptfarbe braucht also genau eine geänderte Zeile.
+ */
+:root {
+	--brand: #1d4d38;
+	--accent: #f3c518;
+	--paper: #f1eee3;
+
+	--ground: color-mix(in oklab, var(--brand) 58%, #03100a);
+	--raised: color-mix(in oklab, var(--brand) 88%, #03100a);
+	--rule: color-mix(in oklab, var(--brand) 42%, var(--paper));
+	--dim: color-mix(in oklab, var(--paper) 74%, var(--brand));
+	--ink: #171309;
+
+	--gap: clamp(0.75rem, 1.6vw, 1.75rem);
+	--pad: clamp(1rem, 2.6vw, 2.75rem);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--ground);
+	color: var(--paper);
+	font-family: Archivo, system-ui, sans-serif;
+	font-synthesis: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+	outline: 3px solid var(--accent);
+	outline-offset: 3px;
+}
+
+.stage {
+	min-height: 100svh;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr) auto;
+	gap: var(--gap);
+	padding: var(--pad);
+}
+
+.stage__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.5rem 1.5rem;
+	padding-bottom: calc(var(--gap) * 0.6);
+	border-bottom: 2px solid var(--rule);
+}
+
+.stage__title {
+	margin: 0;
+	font-size: clamp(1.5rem, 3.4vw, 3rem);
+	font-weight: 600;
+	font-stretch: 96%;
+	letter-spacing: -0.02em;
+	line-height: 1;
+}
+
+.stage__aside {
+	margin: 0;
+	color: var(--dim);
+	font-size: clamp(0.85rem, 1.2vw, 1.125rem);
+	font-stretch: 88%;
+	letter-spacing: 0.01em;
+}
+
+/* Hinweis für die Person am Laptop. Blendet sich aus, bevor der Raum hinschaut. */
+.hint {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+	color: var(--dim);
+	font-size: 0.9rem;
+	font-stretch: 88%;
+	animation: hint-out 900ms 7s both;
+}
+
+.hint kbd {
+	display: inline-block;
+	padding: 0.15em 0.5em;
+	border: 1px solid var(--rule);
+	color: var(--paper);
+	font: inherit;
+	font-stretch: 100%;
+	font-weight: 600;
+}
+
+@keyframes hint-out {
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 1ms !important;
+		transition-duration: 1ms !important;
+	}
+}
+
+/* Freigabe-Anzeige. Aus zwei Metern Entfernung nicht mehr zu sehen. */
+.status {
+	flex: none;
+	width: 14px;
+	height: 14px;
+	background: var(--rule);
+	transition: background 200ms ease;
+}
+
+[data-armed] .status {
+	background: var(--accent);
+}

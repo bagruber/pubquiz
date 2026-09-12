@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo-Ausschnitte</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/crop-board.css">
+</head>
+<body>
+
+<div class="stage">
+	<header class="stage__head">
+		<h1 class="stage__title">Welches Unternehmen ist das?</h1>
+		<span class="status" role="status" aria-label="Auflösen freigeschaltet"></span>
+	</header>
+
+	<ol class="board"></ol>
+
+	<footer>
+		<p class="hint">
+			<kbd>Leer</kbd> schaltet das Auflösen frei, dann öffnet ein Klick eine Kachel.
+			<kbd>Esc</kbd> setzt zurück, <kbd>E</kbd> justiert die Ausschnitte.
+		</p>
+		<div class="adjust">
+			<p>Klick setzt den Fokus, Scrollen zoomt, <kbd>E</kbd> beendet.
+				Die Werte gehören nach <code>rounds/logos.html</code>.</p>
+			<textarea data-values spellcheck="false" aria-label="Ausschnittwerte zum Kopieren"></textarea>
+		</div>
+	</footer>
+</div>
+
+<script src="../assets/js/crop-board.js"></script>
+<script>
+cropBoard(document.querySelector('.board'), [
+	{ src: '../assets/logos/allianz.svg', name: 'Allianz', focus: [26, 46], zoom: 7 },
+	{ src: '../assets/logos/freeletics.svg', name: 'Freeletics', focus: [73, 30], zoom: 3.2 },
+	{ src: '../assets/logos/munich-re.svg', name: 'Munich Re', focus: [90, 48], zoom: 4.5 },
+	{ src: '../assets/logos/helsing.svg', name: 'Helsing', focus: [46, 50], zoom: 2.4 },
+	{ src: '../assets/logos/mtu.svg', name: 'MTU Aero Engines', focus: [9, 55], zoom: 4.2 },
+	{ src: '../assets/logos/knorr-bremse.svg', name: 'Knorr-Bremse', focus: [6, 47], zoom: 11 },
+]);
+</script>
+
+</body>
+</html>
