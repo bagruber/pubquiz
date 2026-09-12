@@ -45,6 +45,11 @@ denselben Zahlen wie die Karten, damit beides nicht auseinanderläuft. Die
 Reihenfolge der vier Karten steht am Ende von `rounds/kartogramme.html` und darf
 von Hand umsortiert werden.
 
+Unten links steht eine fünfte Karte als Referenz: dieselben rund 340 Sechsecke,
+aber nach Quadratkilometern verteilt — also München, wie es wirklich liegt. Sie
+gehört nicht zum Rätsel und erklärt daneben, dass Gelb überall Altstadt-Lehel
+ist.
+
 ## Farben
 
 Drei Werte in `assets/css/base.css`: `--brand`, `--accent`, `--paper`. Alles
@@ -62,12 +67,25 @@ daneben im selben Ordner:
 node scripts/build-maps.mjs
 ```
 
-Schreibt die vier SVGs und `karten.js` nach `assets/maps/`. Die Zahlen stehen in
+Schreibt die fünf SVGs und `karten.js` nach `assets/maps/`. Die Zahlen stehen in
 `scripts/bezirke.json`; Herkunft und Stichtag im Kopf des Skripts.
 
 Bezirksgrenzen der Landeshauptstadt München, Außengrenze © GeoBasis-DE / BKG
 2026, beides dl-de/by-2-0. Die Angabe muss jede Veröffentlichung mitführen, die
 diese Geometrien zeigt — sie steht deshalb im Fuß der Aufgabenseite.
+
+## QR-Codes
+
+Die Startseite zeigt für jede Aufgabe einen QR-Code aus `assets/qr/`. Sie zeigen
+auf `https://bagruber.github.io/pubquiz/rounds/logos.html` beziehungsweise
+`.../kartogramme.html`, sind mit Fehlerkorrektur M erzeugt und in Papierfarbe
+statt reinweiß gehalten.
+
+Ändert sich eine URL, gehören sie neu erzeugt — sie fallen sonst still ins Leere:
+
+```
+npx qrcode -t svg -e M -o assets/qr/logos.svg "https://…/rounds/logos.html"
+```
 
 ## Schriften
 

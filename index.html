@@ -6,38 +6,69 @@
 <title>Pubquiz</title>
 <link rel="stylesheet" href="assets/css/base.css">
 <style>
-	.rounds {
-		margin: 0;
+	.tasks {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+		gap: var(--gap) calc(var(--gap) * 1.3);
+		align-content: center;
+		justify-content: center;
+		width: 100%;
+		max-width: 52rem;
+		margin-inline: auto;
 		padding: 0;
 		list-style: none;
-		align-self: start;
-		max-width: 48rem;
 	}
 
-	.rounds a {
-		font-family: Arvo, Georgia, serif;
-		display: flex;
-		align-items: baseline;
-		gap: 0.8em;
-		padding: 1.1rem 0;
-		border-bottom: 2px solid var(--rule);
+	.tasks a {
+		display: grid;
+		gap: 0.7rem;
 		color: var(--paper);
-		font-size: clamp(1rem, 2vw, 1.7rem);
-		font-weight: 700;
 		text-decoration: none;
 	}
 
-	.rounds a:hover {
+	/* Der QR-Code sitzt im selben Papierfenster wie die Felder der Aufgaben. */
+	.tasks img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 1;
+		background: var(--paper);
+	}
+
+	/* Zwei Zeilen Platz, damit die Linien beider Karten auf einer Höhe liegen. */
+	.tasks span {
+		display: flex;
+		align-items: baseline;
+		gap: 0.6em;
+		min-height: 2.7em;
+		padding-bottom: 0.3em;
+		border-bottom: 2px solid var(--rule);
+		font-family: Arvo, Georgia, serif;
+		font-size: clamp(0.9rem, 1.4vw, 1.35rem);
+		font-weight: 700;
+		transition: border-color 200ms ease;
+	}
+
+	.tasks b {
+		flex: none;
 		color: var(--accent);
+	}
+
+	.tasks a:hover span,
+	.tasks a:focus-visible span {
 		border-bottom-color: var(--accent);
 	}
 
-	.rounds b {
-		flex: none;
-		min-width: 1.8em;
-		color: var(--accent);
-		font-weight: 700;
-		font-variant-numeric: tabular-nums;
+	.tasks a:hover b {
+		color: var(--paper);
+	}
+
+	.tasks small {
+		display: block;
+		color: var(--dim);
+		font-family: Archivo, system-ui, sans-serif;
+		font-size: clamp(0.68rem, 0.9vw, 0.82rem);
+		font-stretch: 92%;
+		overflow-wrap: anywhere;
 	}
 </style>
 </head>
@@ -48,12 +79,27 @@
 		<h1 class="stage__title">Pubquiz</h1>
 	</header>
 
-	<ul class="rounds">
-		<li><a href="rounds/logos.html"><b>2</b> Logo-Ausschnitte</a></li>
-		<li><a href="rounds/kartogramme.html"><b>4</b> Kartogramme der Münchner Bezirke</a></li>
+	<ul class="tasks">
+		<li>
+			<a href="rounds/logos.html">
+				<img src="assets/qr/logos.svg" alt="QR-Code zu Aufgabe 2">
+				<span><b>2</b> Logo-Ausschnitte</span>
+				<small>bagruber.github.io/pubquiz/rounds/logos.html</small>
+			</a>
+		</li>
+		<li>
+			<a href="rounds/kartogramme.html">
+				<img src="assets/qr/kartogramme.svg" alt="QR-Code zu Aufgabe 4">
+				<span><b>4</b> Kartogramme der Münchner Bezirke</span>
+				<small>bagruber.github.io/pubquiz/rounds/kartogramme.html</small>
+			</a>
+		</li>
 	</ul>
 
-	<footer></footer>
+	<footer>
+		<p class="hint">Auf jeder Aufgabenseite: <kbd>Leer</kbd> schaltet das Auflösen frei,
+			<kbd>Esc</kbd> setzt zurück.</p>
+	</footer>
 </div>
 
 </body>

@@ -146,6 +146,25 @@ body {
 	font-weight: 700;
 }
 
+/* Referenzkarte plus Erklärung, nebeneinander im Fuß. */
+.key {
+	display: flex;
+	align-items: start;
+	gap: clamp(0.9rem, 1.8vw, 1.75rem);
+	margin-bottom: 0.6rem;
+}
+
+.key__map {
+	flex: none;
+	display: block;
+	width: clamp(140px, 18vw, 285px);
+	background: var(--paper);
+}
+
+.key__text {
+	min-width: 0;
+}
+
 .credit {
 	margin: 0 0 0.55rem;
 	color: color-mix(in oklab, var(--dim) 72%, var(--ground));

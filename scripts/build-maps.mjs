@@ -23,6 +23,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { hexmap } from "../../hexagonalmap/src/core/hexmap.js";
 import { toSVG } from "../../hexagonalmap/src/core/svg.js";
 import { colourise } from "../../hexagonalmap/src/core/colour.js";
+import { laea, project, centerOf, area } from "../../hexagonalmap/src/core/geo.js";
 
 const HEX = "../../hexagonalmap/data/muenchen-stadt";
 const areas = JSON.parse(readFileSync(new URL(`${HEX}/teile.geojson`, import.meta.url)));
@@ -65,6 +66,12 @@ const karten = [
 ];
 
 const zahl = (n) => n.toLocaleString("de-DE");
+
+// Echte Fläche je Bezirk, aus der projizierten Geometrie. Sie trägt die
+// Referenzkarte: dieselben Sechsecke, verteilt nach Quadratkilometern statt
+// nach einem Kennwert.
+const projektion = laea(...centerOf(outline));
+const flaeche = new Map(project(areas, projektion).map((r) => [r.props.ags, area(r)]));
 
 /** Alle Bezirke auf dem Höchst- oder Tiefstwert — Gleichstand kommt vor. */
 function spitze(feld, richtung) {
@@ -128,6 +135,35 @@ for (const { datei, feld, titel, quelle } of karten) {
 		(leer.length ? `
                ohne Feld: ${leer.join(", ")}` : "")
 	);
+}
+
+// Referenzkarte: gleiche Auflösung, aber die Fläche steht für sich selbst.
+{
+	const summe = [...flaeche.values()].reduce((a, b) => a + b, 0);
+	const layout = hexmap({
+		areas,
+		outline,
+		value: (p) => flaeche.get(p.ags) ?? 0,
+		valuePerHex: summe / ZIEL,
+		fidelity: 1,
+		orientation: "pointy",
+	});
+
+	writeFileSync(
+		new URL("../assets/maps/flaeche.svg", import.meta.url),
+		toSVG(layout, {
+			width: 900,
+			padding: 2,
+			gap: 0.09,
+			fill: (region) => (region.id === ANKER ? ANKER_TON : farbeJeBezirk.get(region.id) ?? TONES[0]),
+			stroke: INK,
+			strokeWidth: 3,
+		})
+	);
+
+	const felder = layout.regions.reduce((a, r) => a + r.count, 0);
+	const gross = [...layout.regions].sort((a, b) => b.count - a.count)[0];
+	console.log(`flaeche        ${String(felder).padStart(30)} Felder  größte: ${gross.name} ${gross.count}`);
 }
 
 // Die Seite bindet diese Datei als normales Script ein — fetch() scheitert an
