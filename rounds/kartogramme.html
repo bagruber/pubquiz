@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aufgabe 4 — Kartogramme</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/reveal-board.css">
+<style>
+	/* Vier Karten nebeneinander: nur so lassen sie sich gegeneinander lesen,
+	   und darum geht die Aufgabe. Das Fensterformat ist das der SVGs. */
+	.board {
+		--cols: 4;
+		--rows: 1;
+		--tile-ratio: 900/720;
+		--col-gap: var(--gap);
+		/* Die SVGs bringen ihren eigenen Rand mit, der Rahmen braucht keinen. */
+		--frame-pad: 0;
+	}
+
+	@media (max-width: 1100px) {
+		.board {
+			--cols: 2;
+		}
+	}
+
+	@media (max-width: 620px) {
+		.board {
+			--cols: 1;
+		}
+	}
+</style>
+</head>
+<body>
+
+<div class="stage">
+	<header class="stage__head">
+		<h1 class="stage__title">Was zählt jede dieser vier Karten?</h1>
+		<p class="stage__task">Aufgabe 4 <span class="status" role="status" aria-label="Auflösen freigeschaltet"></span></p>
+	</header>
+
+	<ol class="board"></ol>
+
+	<footer>
+		<p class="note">
+			Ein Sechseck steht auf jeder Karte für eine feste Menge; ein Bezirk bekommt so viele,
+			wie sein Wert hergibt. Die Fläche ist also die Zahl, nicht die Quadratkilometer.
+			<b>Gelb ist immer die Altstadt.</b>
+		</p>
+		<p class="hint">
+			<kbd>Leer</kbd> schaltet das Auflösen frei, dann öffnet ein Klick eine Karte.
+			<kbd>Esc</kbd> setzt zurück.
+		</p>
+	</footer>
+</div>
+
+<script src="../assets/js/reveal-board.js"></script>
+<script>
+revealBoard(document.querySelector('.board'), [
+	{ src: '../assets/maps/trinkbrunnen.svg', name: 'Trinkbrunnen · 112' },
+	{ src: '../assets/maps/bevoelkerung.svg', name: 'Bevölkerung · 1.603.776' },
+	{ src: '../assets/maps/spielplaetze.svg', name: 'Spielplätze · 814' },
+	{ src: '../assets/maps/pkw.svg', name: 'PKW · 759.211' },
+]);
+</script>
+
+</body>
+</html>

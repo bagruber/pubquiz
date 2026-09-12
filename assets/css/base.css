@@ -1,5 +1,15 @@
-/* Schrift, Farben und Seitengerüst. Von allen Runden geteilt. */
+/* Schrift, Farben und Seitengerüst. Von allen Aufgaben geteilt. */
 
+/* Arvo trägt die Überschriften und die Marken A, B, C. */
+@font-face {
+	font-family: Arvo;
+	src: url(../fonts/arvo-700.woff2) format('woff2');
+	font-weight: 700;
+	font-display: swap;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+
+/* Archivo trägt den Kleinkram: Hinweise, Werte, Listen. */
 @font-face {
 	font-family: Archivo;
 	src: url(../fonts/archivo-latin.woff2) format('woff2');
@@ -24,7 +34,7 @@
  */
 :root {
 	--brand: #1d4d38;
-	--accent: #f3c518;
+	--accent: #ffe600;
 	--paper: #f1eee3;
 
 	--ground: color-mix(in oklab, var(--brand) 58%, #03100a);
@@ -35,6 +45,11 @@
 
 	--gap: clamp(0.75rem, 1.6vw, 1.75rem);
 	--pad: clamp(1rem, 2.6vw, 2.75rem);
+
+	/* Alles an Höhe, was nicht Brett ist: Seitenrand, Kopf, Fuß, Zwischenräume.
+	   Einziger Schätzwert im Layout — er deckelt die Brettbreite so, dass zwei
+	   Reihen noch auf den Schirm passen. */
+	--chrome: 15rem;
 }
 
 *,
@@ -82,19 +97,53 @@ body {
 
 .stage__title {
 	margin: 0;
-	font-size: clamp(1.5rem, 3.4vw, 3rem);
-	font-weight: 600;
-	font-stretch: 96%;
-	letter-spacing: -0.02em;
-	line-height: 1;
+	color: var(--accent);
+	font-family: Arvo, Georgia, serif;
+	font-size: clamp(1.35rem, 3.3vw, 3.2rem);
+	font-weight: 700;
+	letter-spacing: -0.015em;
+	line-height: 1.05;
 }
 
-.stage__aside {
-	margin: 0;
+.stage__task {
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
 	color: var(--dim);
 	font-size: clamp(0.85rem, 1.2vw, 1.125rem);
 	font-stretch: 88%;
-	letter-spacing: 0.01em;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+/* Freigabe-Anzeige. Aus zwei Metern Entfernung nicht mehr zu sehen. */
+.status {
+	flex: none;
+	width: 14px;
+	height: 14px;
+	background: var(--rule);
+	transition: background 200ms ease;
+}
+
+[data-armed] .status {
+	background: var(--accent);
+}
+
+/* Erklärung für den Raum: bleibt stehen, solange die Aufgabe läuft. */
+.note {
+	max-width: 62ch;
+	margin: 0 0 0.55rem;
+	color: var(--dim);
+	font-size: clamp(0.85rem, 1.15vw, 1.05rem);
+	font-stretch: 92%;
+	line-height: 1.5;
+}
+
+.note b {
+	color: var(--accent);
+	font-weight: 700;
 }
 
 /* Hinweis für die Person am Laptop. Blendet sich aus, bevor der Raum hinschaut. */
@@ -102,6 +151,7 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 0.9rem;
+	margin: 0;
 	color: var(--dim);
 	font-size: 0.9rem;
 	font-stretch: 88%;
@@ -132,17 +182,4 @@ body {
 		animation-duration: 1ms !important;
 		transition-duration: 1ms !important;
 	}
-}
-
-/* Freigabe-Anzeige. Aus zwei Metern Entfernung nicht mehr zu sehen. */
-.status {
-	flex: none;
-	width: 14px;
-	height: 14px;
-	background: var(--rule);
-	transition: background 200ms ease;
-}
-
-[data-armed] .status {
-	background: var(--accent);
 }

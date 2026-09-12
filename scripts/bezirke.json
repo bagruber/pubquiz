@@ -1,0 +1,227 @@
+[
+ {
+  "nr": 1,
+  "name": "Altstadt-Lehel",
+  "ags": "09162-01",
+  "bevoelkerung": 20876,
+  "pkw": 65919,
+  "trinkbrunnen": 15,
+  "spielplaetze": 12
+ },
+ {
+  "nr": 2,
+  "name": "Ludwigsvorstadt-Isarvorstadt",
+  "ags": "09162-02",
+  "bevoelkerung": 50081,
+  "pkw": 17220,
+  "trinkbrunnen": 6,
+  "spielplaetze": 17
+ },
+ {
+  "nr": 3,
+  "name": "Maxvorstadt",
+  "ags": "09162-03",
+  "bevoelkerung": 52434,
+  "pkw": 21950,
+  "trinkbrunnen": 6,
+  "spielplaetze": 9
+ },
+ {
+  "nr": 4,
+  "name": "Schwabing-West",
+  "ags": "09162-04",
+  "bevoelkerung": 68610,
+  "pkw": 21946,
+  "trinkbrunnen": 4,
+  "spielplaetze": 19
+ },
+ {
+  "nr": 5,
+  "name": "Au-Haidhausen",
+  "ags": "09162-05",
+  "bevoelkerung": 63972,
+  "pkw": 19891,
+  "trinkbrunnen": 10,
+  "spielplaetze": 22
+ },
+ {
+  "nr": 6,
+  "name": "Sendling",
+  "ags": "09162-06",
+  "bevoelkerung": 41002,
+  "pkw": 33700,
+  "trinkbrunnen": 3,
+  "spielplaetze": 15
+ },
+ {
+  "nr": 7,
+  "name": "Sendling-Westpark",
+  "ags": "09162-07",
+  "bevoelkerung": 62240,
+  "pkw": 27763,
+  "trinkbrunnen": 3,
+  "spielplaetze": 31
+ },
+ {
+  "nr": 8,
+  "name": "Schwanthalerhöhe",
+  "ags": "09162-08",
+  "bevoelkerung": 28684,
+  "pkw": 11646,
+  "trinkbrunnen": 3,
+  "spielplaetze": 11
+ },
+ {
+  "nr": 9,
+  "name": "Neuhausen-Nymphenburg",
+  "ags": "09162-09",
+  "bevoelkerung": 101901,
+  "pkw": 36531,
+  "trinkbrunnen": 8,
+  "spielplaetze": 38
+ },
+ {
+  "nr": 10,
+  "name": "Moosach",
+  "ags": "09162-10",
+  "bevoelkerung": 56015,
+  "pkw": 24026,
+  "trinkbrunnen": 1,
+  "spielplaetze": 43
+ },
+ {
+  "nr": 11,
+  "name": "Milbertshofen-Am Hart",
+  "ags": "09162-11",
+  "bevoelkerung": 77281,
+  "pkw": 54073,
+  "trinkbrunnen": 6,
+  "spielplaetze": 51
+ },
+ {
+  "nr": 12,
+  "name": "Schwabing-Freimann",
+  "ags": "09162-12",
+  "bevoelkerung": 77092,
+  "pkw": 43718,
+  "trinkbrunnen": 2,
+  "spielplaetze": 50
+ },
+ {
+  "nr": 13,
+  "name": "Bogenhausen",
+  "ags": "09162-13",
+  "bevoelkerung": 95475,
+  "pkw": 43944,
+  "trinkbrunnen": 3,
+  "spielplaetze": 62
+ },
+ {
+  "nr": 14,
+  "name": "Berg am Laim",
+  "ags": "09162-14",
+  "bevoelkerung": 47367,
+  "pkw": 19992,
+  "trinkbrunnen": 4,
+  "spielplaetze": 25
+ },
+ {
+  "nr": 15,
+  "name": "Trudering-Riem",
+  "ags": "09162-15",
+  "bevoelkerung": 76280,
+  "pkw": 38510,
+  "trinkbrunnen": 3,
+  "spielplaetze": 58
+ },
+ {
+  "nr": 16,
+  "name": "Ramersdorf-Perlach",
+  "ags": "09162-16",
+  "bevoelkerung": 120776,
+  "pkw": 48115,
+  "trinkbrunnen": 6,
+  "spielplaetze": 76
+ },
+ {
+  "nr": 17,
+  "name": "Obergiesing-Fasangarten",
+  "ags": "09162-17",
+  "bevoelkerung": 54352,
+  "pkw": 16662,
+  "trinkbrunnen": 7,
+  "spielplaetze": 15
+ },
+ {
+  "nr": 18,
+  "name": "Untergiesing-Harlaching",
+  "ags": "09162-18",
+  "bevoelkerung": 54067,
+  "pkw": 20242,
+  "trinkbrunnen": 4,
+  "spielplaetze": 24
+ },
+ {
+  "nr": 19,
+  "name": "Thalkirchen-Obersendling-Forstenried-Fürstenried-Solln",
+  "ags": "09162-19",
+  "bevoelkerung": 103717,
+  "pkw": 47414,
+  "trinkbrunnen": 6,
+  "spielplaetze": 42
+ },
+ {
+  "nr": 20,
+  "name": "Hadern",
+  "ags": "09162-20",
+  "bevoelkerung": 51637,
+  "pkw": 19893,
+  "trinkbrunnen": 0,
+  "spielplaetze": 23
+ },
+ {
+  "nr": 21,
+  "name": "Pasing-Obermenzing",
+  "ags": "09162-21",
+  "bevoelkerung": 81804,
+  "pkw": 33566,
+  "trinkbrunnen": 5,
+  "spielplaetze": 55
+ },
+ {
+  "nr": 22,
+  "name": "Aubing-Lochhausen-Langwied",
+  "ags": "09162-22",
+  "bevoelkerung": 61011,
+  "pkw": 24386,
+  "trinkbrunnen": 3,
+  "spielplaetze": 40
+ },
+ {
+  "nr": 23,
+  "name": "Allach-Untermenzing",
+  "ags": "09162-23",
+  "bevoelkerung": 36230,
+  "pkw": 19248,
+  "trinkbrunnen": 0,
+  "spielplaetze": 24
+ },
+ {
+  "nr": 24,
+  "name": "Feldmoching-Hasenbergl",
+  "ags": "09162-24",
+  "bevoelkerung": 63756,
+  "pkw": 25483,
+  "trinkbrunnen": 1,
+  "spielplaetze": 36
+ },
+ {
+  "nr": 25,
+  "name": "Laim",
+  "ags": "09162-25",
+  "bevoelkerung": 57116,
+  "pkw": 23373,
+  "trinkbrunnen": 3,
+  "spielplaetze": 16
+ }
+]

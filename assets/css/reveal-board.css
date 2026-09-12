@@ -1,15 +1,32 @@
 /*
- * Das Brett aus Ausschnitten. Jedes Fenster zeigt ein Bild, das um einen
- * Fokuspunkt herum vergrößert ist; auflösen heißt, den Zoom auf 1 zu fahren.
- * Später auch für Kartenausschnitte, deshalb steht hier nichts über Logos.
+ * Das Brett aus Feldern. Jedes Fenster zeigt ein Bild; auflösen heißt bei
+ * Ausschnitten, den Zoom auf 1 zu fahren, und bei allem anderen, den Namen
+ * unter das Bild zu schreiben.
+ *
+ * Das Fensterformat steht fest (--tile-ratio) und hängt nicht am Schirm. Nur
+ * so zeigt ein Ausschnitt am Beamer dasselbe wie am Laptop, auf dem er
+ * eingestellt wurde. Die Brettbreite wird stattdessen so gedeckelt, dass alle
+ * Reihen in die Höhe passen.
  */
 
 .board {
+	--cols: 3;
+	--rows: 2;
+	--tile-ratio: 16/9;
+	--label: 2.9rem;
+	--col-gap: calc(var(--gap) * 1.3);
+
+	--avail: calc(100svh - var(--chrome));
+	--row-h: calc((var(--avail) - (var(--rows) - 1) * var(--gap)) / var(--rows));
+	--col-w: calc((var(--row-h) - var(--label)) * var(--tile-ratio));
+
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-auto-rows: minmax(0, 1fr);
-	gap: var(--gap) calc(var(--gap) * 1.3);
-	min-height: 0;
+	grid-template-columns: repeat(var(--cols), 1fr);
+	gap: var(--gap) var(--col-gap);
+	align-self: center;
+	justify-self: center;
+	width: 100%;
+	max-width: calc(var(--cols) * var(--col-w) + (var(--cols) - 1) * var(--col-gap));
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -17,17 +34,15 @@
 
 .tile {
 	display: grid;
-	grid-template-rows: minmax(0, 1fr) auto;
 	gap: 0.7rem;
-	min-height: 0;
+	min-width: 0;
 }
 
 .tile__window {
 	position: relative;
 	display: block;
 	width: 100%;
-	height: 100%;
-	min-height: 0;
+	aspect-ratio: var(--tile-ratio);
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -41,7 +56,7 @@
 .tile__frame {
 	position: absolute;
 	inset: 0;
-	padding: 4%;
+	padding: var(--frame-pad, 4%);
 	transform: scale(var(--zoom, 1));
 	transform-origin: var(--fx, 50%) var(--fy, 50%);
 	transition: transform 950ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -65,25 +80,25 @@
 	transition: border-color 400ms ease;
 }
 
-.tile__no {
+.tile__mark {
 	flex: none;
 	min-width: 1.1em;
 	color: var(--accent);
-	font-size: clamp(1.05rem, 1.9vw, 1.9rem);
-	font-weight: 800;
-	font-stretch: 115%;
+	font-family: Arvo, Georgia, serif;
+	font-size: clamp(1rem, 1.7vw, 1.7rem);
+	font-weight: 700;
 	line-height: 1;
-	font-variant-numeric: tabular-nums;
 }
 
 .tile__name {
 	visibility: hidden;
-	font-size: clamp(0.9rem, 1.55vw, 1.55rem);
+	overflow: hidden;
+	font-family: Arvo, Georgia, serif;
+	font-size: clamp(0.8rem, 1.3vw, 1.3rem);
 	font-weight: 700;
-	font-stretch: 80%;
-	letter-spacing: 0.05em;
-	line-height: 1;
-	text-transform: uppercase;
+	line-height: 1.15;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 /* Freigeschaltet: nur der Zeiger verrät es, der Raum sieht nichts. */
@@ -126,6 +141,7 @@
 	padding: 0.25em 0.5em;
 	background: var(--ink);
 	color: var(--paper);
+	font-family: Archivo, system-ui, sans-serif;
 	font-size: 0.8rem;
 	font-stretch: 88%;
 	font-variant-numeric: tabular-nums;
@@ -142,7 +158,6 @@
 	background:
 		linear-gradient(var(--accent), var(--accent)) center / 100% 2px no-repeat,
 		linear-gradient(var(--accent), var(--accent)) center / 2px 100% no-repeat;
-	mix-blend-mode: normal;
 	pointer-events: none;
 }
 
@@ -162,7 +177,7 @@
 
 /* Legt sich über die Seite, statt sie zu stauchen: sonst ändert das
    Umschalten die Fensterhöhe und damit den Ausschnitt. Flach genug, dass
-   die untere Kachelreihe frei bleibt. */
+   die untere Reihe frei bleibt. */
 .adjust {
 	position: fixed;
 	inset: auto 0 0 0;
@@ -201,7 +216,7 @@
 	resize: none;
 }
 
-/* Beim Anfassen aufgehen, damit alle sechs Zeilen zum Kopieren dastehen. */
+/* Beim Anfassen aufgehen, damit alle Zeilen zum Kopieren dastehen. */
 .adjust textarea:focus {
 	height: 11rem;
 }
@@ -214,13 +229,8 @@
 	}
 
 	.board {
-		grid-template-columns: repeat(2, 1fr);
-		grid-auto-rows: auto;
-	}
-
-	.tile__window {
-		height: auto;
-		aspect-ratio: 4 / 3;
+		--cols: 2;
+		max-width: none;
 	}
 
 	.adjust {
@@ -230,6 +240,6 @@
 
 @media (max-width: 620px) {
 	.board {
-		grid-template-columns: 1fr;
+		--cols: 1;
 	}
 }

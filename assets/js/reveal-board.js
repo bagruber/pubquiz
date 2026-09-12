@@ -1,21 +1,26 @@
 /*
- * cropBoard(boardElement, items)
+ * revealBoard(boardElement, items)
  *
  * items: [{ src, name, focus: [x, y], zoom }]
  *   focus  Fokuspunkt in Prozent des Fensters, um den herum vergrößert wird
- *   zoom   Vergrößerung im versteckten Zustand; Auflösen fährt auf 1
+ *   zoom   Vergrößerung im versteckten Zustand; Auflösen fährt auf 1.
+ *          Ohne zoom liegt das Bild offen und nur der Name wird aufgelöst.
  *
- * Leertaste  schaltet frei, danach löst ein Klick eine Kachel auf
+ * Leertaste  schaltet frei, danach löst ein Klick ein Feld auf
  * Escape     setzt alles zurück
- * E          Justier-Modus: klicken setzt den Fokus, scrollen zoomt
+ * E          Justier-Modus: klicken setzt den Fokus, scrollen zoomt.
+ *            Nur auf Seiten, die ein Feld für die Werte mitbringen.
  */
-function cropBoard(board, items) {
+function revealBoard(board, items) {
 	var stage = board.closest('.stage');
 	var output = stage.querySelector('[data-values]');
 	var armed = false;
 	var adjusting = false;
 
 	var tiles = items.map(function (item, index) {
+		if (!item.focus) item.focus = [50, 50];
+		if (!item.zoom) item.zoom = 1;
+
 		var li = document.createElement('li');
 		li.className = 'tile';
 		li.innerHTML =
@@ -23,7 +28,7 @@ function cropBoard(board, items) {
 			'<span class="tile__frame"><img class="tile__art" alt="" src="' + item.src + '"></span>' +
 			'<span class="tile__cross"></span><span class="tile__values"></span>' +
 			'</button>' +
-			'<p class="tile__answer"><span class="tile__no"></span>' +
+			'<p class="tile__answer"><span class="tile__mark"></span>' +
 			'<span class="tile__name"></span></p>';
 
 		var tile = {
@@ -33,9 +38,10 @@ function cropBoard(board, items) {
 			item: item
 		};
 
-		li.querySelector('.tile__no').textContent = index + 1;
+		var mark = String.fromCharCode(65 + index);
+		li.querySelector('.tile__mark').textContent = mark;
 		li.querySelector('.tile__name').textContent = item.name;
-		tile.window.setAttribute('aria-label', 'Ausschnitt ' + (index + 1) + ' auflösen');
+		tile.window.setAttribute('aria-label', 'Feld ' + mark + ' auflösen');
 		paint(tile);
 
 		tile.window.addEventListener('click', function () {
@@ -55,7 +61,7 @@ function cropBoard(board, items) {
 		tile.window.addEventListener('wheel', function (event) {
 			if (!adjusting) return;
 			event.preventDefault();
-			item.zoom = clamp(item.zoom * (event.deltaY > 0 ? 0.94 : 1.064), 1.1, 14);
+			item.zoom = clamp(item.zoom * (event.deltaY > 0 ? 0.94 : 1.064), 1, 20);
 			paint(tile);
 		}, { passive: false });
 
@@ -107,7 +113,7 @@ function cropBoard(board, items) {
 			tiles.forEach(function (tile) {
 				delete tile.el.dataset.revealed;
 			});
-		} else if (event.key.toLowerCase() === 'e') {
+		} else if (event.key.toLowerCase() === 'e' && output) {
 			adjusting = !adjusting;
 			stage.toggleAttribute('data-adjust', adjusting);
 		}
