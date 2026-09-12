@@ -1,10 +1,12 @@
 /*
  * revealBoard(boardElement, items)
  *
- * items: [{ src, name, focus: [x, y], zoom }]
+ * items: [{ src, name, focus: [x, y], zoom, facts, quelle }]
  *   focus  Fokuspunkt in Prozent des Fensters, um den herum vergrößert wird
  *   zoom   Vergrößerung im versteckten Zustand; Auflösen fährt auf 1.
  *          Ohne zoom liegt das Bild offen und nur der Name wird aufgelöst.
+ *   facts  Zeilen [Beschriftung, Text, Zahl], erscheinen mit der Auflösung
+ *   quelle eine Zeile Herkunft, ebenfalls erst nach der Auflösung
  *
  * Leertaste  schaltet frei, danach löst ein Klick ein Feld auf
  * Escape     setzt alles zurück
@@ -42,6 +44,7 @@ function revealBoard(board, items) {
 		li.querySelector('.tile__mark').textContent = mark;
 		li.querySelector('.tile__name').textContent = item.name;
 		tile.window.setAttribute('aria-label', 'Feld ' + mark + ' auflösen');
+		if (item.facts || item.quelle) li.append(detailsOf(item));
 		paint(tile);
 
 		tile.window.addEventListener('click', function () {
@@ -68,6 +71,38 @@ function revealBoard(board, items) {
 		board.append(li);
 		return tile;
 	});
+
+	// Erst nach der Auflösung sichtbar, aber immer im Layout: sonst springt beim
+	// Öffnen eines Feldes die ganze Reihe.
+	function detailsOf(item) {
+		var box = document.createElement('div');
+		box.className = 'tile__detail';
+
+		if (item.facts) {
+			var list = document.createElement('dl');
+			list.className = 'tile__facts';
+			item.facts.forEach(function (row) {
+				var label = document.createElement('dt');
+				label.textContent = row[0];
+				var wert = document.createElement('dd');
+				wert.textContent = row[1];
+				var zahl = document.createElement('b');
+				zahl.textContent = row[2];
+				wert.append(' ', zahl);
+				list.append(label, wert);
+			});
+			box.append(list);
+		}
+
+		if (item.quelle) {
+			var quelle = document.createElement('p');
+			quelle.className = 'tile__source';
+			quelle.textContent = item.quelle;
+			box.append(quelle);
+		}
+
+		return box;
+	}
 
 	function focusAt(tile, event) {
 		var box = tile.window.getBoundingClientRect();

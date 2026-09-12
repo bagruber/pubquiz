@@ -146,6 +146,13 @@ body {
 	font-weight: 700;
 }
 
+.credit {
+	margin: 0 0 0.55rem;
+	color: color-mix(in oklab, var(--dim) 72%, var(--ground));
+	font-size: clamp(0.7rem, 0.9vw, 0.82rem);
+	font-stretch: 92%;
+}
+
 /* Hinweis für die Person am Laptop. Blendet sich aus, bevor der Raum hinschaut. */
 .hint {
 	display: flex;

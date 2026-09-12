@@ -124,6 +124,47 @@
 	animation: name-in 520ms 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.tile__detail {
+	visibility: hidden;
+	font-family: Archivo, system-ui, sans-serif;
+	font-size: clamp(0.68rem, 0.86vw, 0.84rem);
+	font-stretch: 92%;
+	line-height: 1.45;
+}
+
+.tile[data-revealed] .tile__detail {
+	visibility: visible;
+	animation: name-in 520ms 430ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.tile__facts {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0 0.7em;
+	margin: 0;
+}
+
+.tile__facts dt {
+	color: var(--dim);
+}
+
+.tile__facts dd {
+	margin: 0;
+	color: var(--paper);
+}
+
+.tile__facts b {
+	color: var(--accent);
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.tile__source {
+	margin: 0.5em 0 0;
+	color: var(--dim);
+}
+
 @keyframes name-in {
 	from {
 		opacity: 0;

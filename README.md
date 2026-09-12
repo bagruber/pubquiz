@@ -38,6 +38,13 @@ bekommt so viele, wie sein Wert hergibt — die Fläche ist die Zahl. Die Altsta
 liegt auf allen vier Karten in der Akzentfarbe; ohne diesen Anker lassen sich
 die Karten nicht gegeneinander lesen.
 
+Auflösen schreibt unter die Karte, was sie zählt, dazu Spitzenreiter und
+Schlusslicht mit absoluten Zahlen und die Quelle. Diese Angaben stehen nicht im
+HTML, sondern in `assets/maps/karten.js` — das Build-Skript rechnet sie aus
+denselben Zahlen wie die Karten, damit beides nicht auseinanderläuft. Die
+Reihenfolge der vier Karten steht am Ende von `rounds/kartogramme.html` und darf
+von Hand umsortiert werden.
+
 ## Farben
 
 Drei Werte in `assets/css/base.css`: `--brand`, `--accent`, `--paper`. Alles
@@ -55,8 +62,12 @@ daneben im selben Ordner:
 node scripts/build-maps.mjs
 ```
 
-Schreibt die vier SVGs nach `assets/maps/`. Die Zahlen stehen in
+Schreibt die vier SVGs und `karten.js` nach `assets/maps/`. Die Zahlen stehen in
 `scripts/bezirke.json`; Herkunft und Stichtag im Kopf des Skripts.
+
+Bezirksgrenzen der Landeshauptstadt München, Außengrenze © GeoBasis-DE / BKG
+2026, beides dl-de/by-2-0. Die Angabe muss jede Veröffentlichung mitführen, die
+diese Geometrien zeigt — sie steht deshalb im Fuß der Aufgabenseite.
 
 ## Schriften
 

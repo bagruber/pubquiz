@@ -14,6 +14,8 @@
 		--rows: 1;
 		--tile-ratio: 900/720;
 		--col-gap: var(--gap);
+		/* Antwortzeile plus der Block, der bei der Auflösung erscheint. */
+		--label: 7.5rem;
 		/* Die SVGs bringen ihren eigenen Rand mit, der Rahmen braucht keinen. */
 		--frame-pad: 0;
 	}
@@ -47,6 +49,10 @@
 			wie sein Wert hergibt. Die Fläche ist also die Zahl, nicht die Quadratkilometer.
 			<b>Gelb ist immer die Altstadt.</b>
 		</p>
+		<p class="credit">
+			Bezirksgrenzen: Landeshauptstadt München · Außengrenze: © GeoBasis-DE / BKG 2026 ·
+			beides dl-de/by-2-0. Kartogramme gerechnet mit hexagonalmap.
+		</p>
 		<p class="hint">
 			<kbd>Leer</kbd> schaltet das Auflösen frei, dann öffnet ein Klick eine Karte.
 			<kbd>Esc</kbd> setzt zurück.
@@ -54,13 +60,16 @@
 	</footer>
 </div>
 
+<script src="../assets/maps/karten.js"></script>
 <script src="../assets/js/reveal-board.js"></script>
 <script>
+// Reihenfolge der vier Karten — hier umsortieren, wenn dieselben Teams wieder
+// antreten. Die Zahlen dahinter kommen aus karten.js und werden gerechnet.
 revealBoard(document.querySelector('.board'), [
-	{ src: '../assets/maps/trinkbrunnen.svg', name: 'Trinkbrunnen · 112' },
-	{ src: '../assets/maps/bevoelkerung.svg', name: 'Bevölkerung · 1.603.776' },
-	{ src: '../assets/maps/spielplaetze.svg', name: 'Spielplätze · 814' },
-	{ src: '../assets/maps/pkw.svg', name: 'PKW · 759.211' },
+	KARTEN.trinkbrunnen,
+	KARTEN.bevoelkerung,
+	KARTEN.spielplaetze,
+	KARTEN.pkw,
 ]);
 </script>
 

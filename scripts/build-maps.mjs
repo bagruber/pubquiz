@@ -46,17 +46,41 @@ const ANKER_TON = "#ffe600";
 const ZIEL = 340;
 
 const karten = [
-	{ datei: "bevoelkerung", feld: "bevoelkerung" },
-	{ datei: "pkw", feld: "pkw" },
-	{ datei: "trinkbrunnen", feld: "trinkbrunnen" },
-	{ datei: "spielplaetze", feld: "spielplaetze" },
+	{
+		datei: "bevoelkerung", feld: "bevoelkerung", titel: "Bevölkerung",
+		quelle: "Statistisches Amt München, Stand 31.12.2024",
+	},
+	{
+		datei: "pkw", feld: "pkw", titel: "PKW",
+		quelle: "Indikatorenatlas München, Motorisierungsgrad 2025",
+	},
+	{
+		datei: "trinkbrunnen", feld: "trinkbrunnen", titel: "Trinkbrunnen",
+		quelle: "Geoportal München, Baureferat, Abruf 2026",
+	},
+	{
+		datei: "spielplaetze", feld: "spielplaetze", titel: "Spielplätze",
+		quelle: "opendata.muenchen.de, Stand 26.08.2024",
+	},
 ];
+
+const zahl = (n) => n.toLocaleString("de-DE");
+
+/** Alle Bezirke auf dem Höchst- oder Tiefstwert — Gleichstand kommt vor. */
+function spitze(feld, richtung) {
+	const werte = rows.map((r) => r[feld] || 0);
+	const grenze = richtung === "max" ? Math.max(...werte) : Math.min(...werte);
+	const treffer = rows.filter((r) => (r[feld] || 0) === grenze);
+	return [treffer.map((r) => r.name).join(" und "), zahl(grenze)];
+}
+
+const eintraege = {};
 
 // Die Farbzuordnung entsteht einmal auf der Bevölkerungskarte und gilt dann für
 // alle vier: nur so bleibt ein Bezirk über die Karten hinweg wiedererkennbar.
 let farbeJeBezirk = null;
 
-for (const { datei, feld } of karten) {
+for (const { datei, feld, titel, quelle } of karten) {
 	const summe = rows.reduce((a, r) => a + (r[feld] || 0), 0);
 	const layout = hexmap({
 		areas,
@@ -83,6 +107,16 @@ for (const { datei, feld } of karten) {
 
 	writeFileSync(new URL(`../assets/maps/${datei}.svg`, import.meta.url), svg);
 
+	eintraege[datei] = {
+		src: `../assets/maps/${datei}.svg`,
+		name: `${titel} · ${zahl(summe)}`,
+		facts: [
+			["Meiste", ...spitze(feld, "max")],
+			["Wenigste", ...spitze(feld, "min")],
+		],
+		quelle,
+	};
+
 	const felder = layout.regions.reduce((a, r) => a + r.count, 0);
 	const leer = layout.regions.filter((r) => r.count === 0).map((r) => r.name);
 	const gross = [...layout.regions].sort((a, b) => b.count - a.count).slice(0, 3);
@@ -95,3 +129,14 @@ for (const { datei, feld } of karten) {
                ohne Feld: ${leer.join(", ")}` : "")
 	);
 }
+
+// Die Seite bindet diese Datei als normales Script ein — fetch() scheitert an
+// file://, und die Aufgabe soll auch ohne Server vom Stick laufen.
+writeFileSync(
+	new URL("../assets/maps/karten.js", import.meta.url),
+	[
+		"/* Erzeugt von scripts/build-maps.mjs — nicht von Hand ändern. */",
+		"var KARTEN = " + JSON.stringify(eintraege, null, "\t") + ";",
+		"",
+	].join("\n")
+);
